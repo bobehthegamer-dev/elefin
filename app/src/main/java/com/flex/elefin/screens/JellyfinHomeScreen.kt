@@ -2827,15 +2827,16 @@ fun JellyfinHorizontalCard(
                     scaleX = if (isFocused) 1.10f else 1.0f
                     scaleY = if (isFocused) 1.10f else 1.0f
                     // Subtle shadow on focus
-                    shadowElevation = if (isFocused) 16f else 0f
+                    shadowElevation = if (isFocused) 36f else 0f
                 }
                 .then(
                     if (isFocused) {
                         // Google TV glow border
+                        // Elefin Glass: thin translucent edge instead of a thick white border
                         Modifier.border(
-                            width = 3.dp,
-                            color = Color.White,
-                            shape = RoundedCornerShape(12.dp)
+                            width = 1.5.dp,
+                            color = Color.White.copy(alpha = 0.35f),
+                            shape = RoundedCornerShape(16.dp)
                         )
                     } else {
                         Modifier
@@ -2930,7 +2931,7 @@ fun JellyfinHorizontalCard(
                 }
                 .then(
                     if (isFocused) {
-                        Modifier.border(3.dp, Color.White, RoundedCornerShape(8.dp))
+                        Modifier.border(1.5.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(12.dp))
                     } else {
                         Modifier
                     }
@@ -3282,14 +3283,15 @@ fun JellyfinHorizontalCardWithProgress(
                 .graphicsLayer {
                     scaleX = if (isFocused) 1.10f else 1.0f
                     scaleY = if (isFocused) 1.10f else 1.0f
-                    shadowElevation = if (isFocused) 16f else 0f
+                    shadowElevation = if (isFocused) 36f else 0f
                 }
                 .then(
                     if (isFocused) {
+                        // Elefin Glass: thin translucent edge instead of a thick white border
                         Modifier.border(
-                            width = 3.dp,
-                            color = Color.White,
-                            shape = RoundedCornerShape(12.dp)
+                            width = 1.5.dp,
+                            color = Color.White.copy(alpha = 0.35f),
+                            shape = RoundedCornerShape(16.dp)
                         )
                     } else {
                         Modifier
@@ -3364,7 +3366,7 @@ fun JellyfinHorizontalCardWithProgress(
                 }
                 .then(
                     if (isFocused) {
-                        Modifier.border(3.dp, Color.White, RoundedCornerShape(12.dp))
+                        Modifier.border(1.5.dp, Color.White.copy(alpha = 0.35f), RoundedCornerShape(16.dp))
                     } else {
                         Modifier
                     }

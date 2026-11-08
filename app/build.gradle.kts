@@ -11,13 +11,13 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.flex.elefin"
+        applicationId = "com.flex.elefin.glass" // Elefin Glass: installs alongside stock Elefin
         minSdk = 21
         targetSdk = 36
 
         // Version code: major * 10000 + minor * 100 + patch
-        versionCode = 10126
-        versionName = "1.1.26"
+        versionCode = 10140
+        versionName = "1.1.40"
 
         ndk {
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -26,6 +26,8 @@ android {
 
     buildTypes {
         release {
+            // Sideload build: sign with the standard debug key so the APK installs without a private keystore
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -39,7 +41,7 @@ android {
             if (variant.buildType == "release") {
                 variant.outputs.forEach { output ->
                     val out = output as com.android.build.api.variant.impl.VariantOutputImpl
-                    out.outputFileName.set("elefin-release.apk")
+                    out.outputFileName.set("elefin-glass.apk")
                 }
             }
         }

@@ -32,6 +32,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import android.view.KeyEvent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
@@ -48,14 +49,19 @@ fun JellyfinAppTheme(
         view.isSoundEffectsEnabled = settings.navigationSoundsEnabled
     }
     
-    // Default theme values (Cohesive Premium Dark & Gold Theme)
+    // Elefin Glass default theme: true black, graphite glass surfaces, soft white accent
     val defaultDarkColorScheme = darkColorScheme(
-        primary = Color(0xFFECC564),
-        background = Color(0xFF09090B),
-        surface = Color(0xFF18181B),
-        onPrimary = Color(0xFF2E2200),
-        onBackground = Color(0xFFECEFF1),
-        onSurface = Color(0xFFF8F9FA)
+        primary = Color(0xFFF5F5F7),
+        onPrimary = Color(0xFF1C1C1E),
+        secondary = Color(0xFFAEAEB2),
+        onSecondary = Color(0xFF1C1C1E),
+        background = Color(0xFF000000),
+        onBackground = Color(0xFFF5F5F7),
+        surface = Color(0xFF1C1C1E),
+        onSurface = Color(0xFFF5F5F7),
+        surfaceVariant = Color(0xFF2C2C2E),
+        onSurfaceVariant = Color(0xFFAEAEB2),
+        border = Color(0x59FFFFFF)
     )
     
     var themeConfig by remember { mutableStateOf<ThemeConfig?>(null) }
@@ -103,7 +109,14 @@ fun JellyfinAppTheme(
             medium = androidx.compose.foundation.shape.RoundedCornerShape(themeConfig!!.shapes!!.cornerRadius)
         )
     } else {
-        Shapes()
+        // Elefin Glass: softer, larger corner radii
+        Shapes(
+            extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+            small = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+            medium = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+            large = androidx.compose.foundation.shape.RoundedCornerShape(22.dp),
+            extraLarge = androidx.compose.foundation.shape.RoundedCornerShape(28.dp)
+        )
     }
 
     // Wrap FocusManager to play sounds

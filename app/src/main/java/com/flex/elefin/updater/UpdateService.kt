@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 object UpdateService {
     private const val TAG = "UpdateService"
     
-    private const val GITHUB_USERNAME = "flex36ty"
+    private const val GITHUB_USERNAME = "bobehthegamer-dev" // Elefin Glass fork releases
     private const val GITHUB_REPO = "elefin"
     
     private val apiUrl = "https://api.github.com/repos/$GITHUB_USERNAME/$GITHUB_REPO/releases/latest"
@@ -187,7 +187,7 @@ object UpdateService {
                     // Create FileProvider URI
                     val fileUri = FileProvider.getUriForFile(
                         context,
-                        "com.flex.elefin.fileprovider",
+                        "${context.packageName}.fileprovider",
                         apkFile
                     )
                     
