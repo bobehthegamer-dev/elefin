@@ -135,18 +135,7 @@ fun MovieDetailsScreen(
     }
 
     val isTv = remember(context) { com.flex.elefin.ui.DeviceUtils.isTvDevice(context) }
-    if (!isTv && repository != null) {
-        JellyfinMobileDetailsScreen(
-            item = item,
-            repository = repository,
-            onPlayClick = { playItem, resumeMs ->
-                val intent = JellyfinVideoPlayerActivity.createIntent(context, playItem.Id, resumeMs)
-                context.startActivity(intent)
-            },
-            onBackClick = { onBackPressed?.invoke() }
-        )
-        return
-    }
+    // Elefin Glass is a TV-only build: the phone layout (not in the upstream repo) is skipped.
     
     // GL Pipeline warmup for NVIDIA Shield - prevents initial frame stutter and ANR
     LaunchedEffect(Unit) {

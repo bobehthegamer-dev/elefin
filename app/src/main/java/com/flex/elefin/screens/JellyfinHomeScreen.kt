@@ -231,21 +231,7 @@ fun JellyfinHomeScreen(
     }
 
     val isTv = remember(context) { com.flex.elefin.ui.DeviceUtils.isTvDevice(context) }
-    if (!isTv && repository != null && !showServerEntry && !showLoginScreen) {
-        JellyfinMobileHomeScreen(
-            initialTabAction = initialTabAction,
-            onTabActionHandled = onTabActionHandled,
-            repository = repository,
-            onItemClick = onItemClick,
-            onMusicClick = onMusicClick,
-            onMoviesLibraryClick = onMoviesLibraryClick,
-            onTvShowsLibraryClick = onTvShowsLibraryClick,
-            preloadLibraryImages = preloadLibraryImages,
-            cacheLibraryImages = cacheLibraryImages,
-            reducePosterResolution = reducePosterResolution
-        )
-        return
-    }
+    // Elefin Glass is a TV-only build: the phone layout (not in the upstream repo) is skipped.
     
     // Show server entry screen if server URL is not configured
     if (showServerEntry) {

@@ -133,16 +133,7 @@ fun MoviesLibraryScreen(
     }
 
     val isTv = remember(context) { com.flex.elefin.ui.DeviceUtils.isTvDevice(context) }
-    if (!isTv && repository != null) {
-        JellyfinMobileLibraryScreen(
-            libraryId = libraryId,
-            libraryName = libraryName,
-            repository = repository,
-            onItemClick = onItemClick,
-            onBackClick = onBackPressed
-        )
-        return
-    }
+    // Elefin Glass is a TV-only build: the phone layout (not in the upstream repo) is skipped.
     
     // Settings states (same as home screen)
     var darkModeEnabled by remember { mutableStateOf(settings.darkModeEnabled) }
