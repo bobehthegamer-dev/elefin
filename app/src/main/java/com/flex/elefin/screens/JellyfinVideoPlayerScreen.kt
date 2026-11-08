@@ -1354,7 +1354,7 @@ fun JellyfinVideoPlayerScreen(
                                         
                                         // Generate MP4 transcoding URL (server will transcode to MP4)
                                         val base = if (apiService.serverBaseUrl.endsWith("/")) apiService.serverBaseUrl else "${apiService.serverBaseUrl}/"
-                                        val mp4Url = "${base}Videos/${item.Id}/stream.mp4?VideoCodec=h264&AudioCodec=aac&mediaSourceId=$mediaSourceId&api_key=${apiService.apiKey}"
+                                        val mp4Url = "${base}Videos/${item.Id}/stream.mp4?VideoCodec=h264&AudioCodec=aac&mediaSourceId=$mediaSourceId&ApiKey=${apiService.apiKey}"
                                         
                                         // Create media source with transcoded MP4
                                         val httpDataSourceFactory = DefaultHttpDataSource.Factory()

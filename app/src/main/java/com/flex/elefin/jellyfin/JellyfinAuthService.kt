@@ -98,7 +98,7 @@ class JellyfinAuthService(
             val response: HttpResponse = client.post(url) {
                 header(HttpHeaders.ContentType, ContentType.Application.Json.toString())
                 header(HttpHeaders.Accept, ContentType.Application.Json.toString())
-                header("X-Emby-Authorization", embyAuthHeader)
+                header("Authorization", embyAuthHeader)
                 setBody(requestBody)
             }
             

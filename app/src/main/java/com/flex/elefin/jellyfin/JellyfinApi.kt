@@ -894,7 +894,7 @@ class JellyfinApiService(
             
             // Device profile hints for quality
             parameters.append("mediaSourceId", sourceId)
-            parameters.append("api_key", accessToken)
+            parameters.append("ApiKey", accessToken)
         }.buildString()
         
         android.util.Log.d("JellyfinAPI", "🔄 Server transcoding URL: $hlsUrl")
@@ -957,7 +957,7 @@ class JellyfinApiService(
                         // Copy timestamps to avoid re-encoding
                         parameters.append("CopyTimestamps", "true")
                         parameters.append("mediaSourceId", sourceId)
-                        parameters.append("api_key", accessToken)
+                        parameters.append("ApiKey", accessToken)
                     }.buildString()
                     android.util.Log.d("JellyfinAPI", "Using HLS for HDR video with audio transcoding to $targetAudioCodec (progressive playback): $hlsUrl")
                     return hlsUrl
@@ -976,7 +976,7 @@ class JellyfinApiService(
                         parameters.append("CopyTimestamps", "true")
                         parameters.append("maxStreamingBitrate", "1000000000")
                         parameters.append("mediaSourceId", sourceId)
-                        parameters.append("api_key", accessToken)
+                        parameters.append("ApiKey", accessToken)
                     }.buildString()
                     android.util.Log.d("JellyfinAPI", "Using HLS for audio transcoding to $targetAudioCodec: $hlsUrl")
                     return hlsUrl
@@ -994,7 +994,7 @@ class JellyfinApiService(
             // Add mediaSourceId with correct casing (camelCase, not MediaSourceId)
             parameters.append("mediaSourceId", sourceId)
             // Add api_key last
-            parameters.append("api_key", accessToken)
+            parameters.append("ApiKey", accessToken)
         }.buildString()
         android.util.Log.d("JellyfinAPI", "Generated video playback URL: $url")
         return url
@@ -1056,9 +1056,9 @@ class JellyfinApiService(
         }
         
         // ✅ CORRECT URL FORMAT (CONFIRMED WORKING)
-        // Example: /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream.srt?api_key=xxx
+        // Example: /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream.srt?ApiKey=xxx
         // Works for: external sidecar .srt files, embedded subtitles, forced subtitles
-        val url = "$server/Videos/$itemId/$mediaSourceId/Subtitles/$streamIndex/Stream.$extension?api_key=$accessToken"
+        val url = "$server/Videos/$itemId/$mediaSourceId/Subtitles/$streamIndex/Stream.$extension?ApiKey=$accessToken"
         
         android.util.Log.d("JellyfinAPI", "✅ Subtitle URL (isExternal=$isExternal, codec=$codec, ext=$extension): $url")
         return url
@@ -1148,8 +1148,7 @@ class JellyfinApiService(
         val embyAuthHeader = "MediaBrowser Client=\"Elefin\", Device=\"Android TV\", DeviceId=\"$deviceId\", Version=\"${BuildConfig.VERSION_NAME}\", Token=\"$accessToken\""
         
         return mapOf(
-            "Authorization" to "MediaBrowser Token=\"$accessToken\"",
-            "X-Emby-Authorization" to embyAuthHeader
+            "Authorization" to embyAuthHeader
         )
     }
     
@@ -1196,11 +1195,11 @@ class JellyfinApiService(
     
     /**
      * Build correct Jellyfin subtitle URL for streaming subtitles.
-     * Format: /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream?api_key=xxx
+     * Format: /Videos/{itemId}/{mediaSourceId}/Subtitles/{index}/Stream?ApiKey=xxx
      */
     fun buildSubtitleUrl(itemId: String, mediaSourceId: String, index: Int): String {
         val base = if (baseUrl.endsWith("/")) baseUrl else "$baseUrl/"
-        return "${base}Videos/$itemId/$mediaSourceId/Subtitles/$index/Stream?api_key=$accessToken"
+        return "${base}Videos/$itemId/$mediaSourceId/Subtitles/$index/Stream?ApiKey=$accessToken"
     }
 
     suspend fun getLibraries(): List<JellyfinLibrary> {
@@ -2092,7 +2091,7 @@ class JellyfinApiService(
             // We will use the X-Emby-Token as per the instruction.
             
             val response = client.post(url) {
-                header("X-Emby-Token", accessToken) // Changed from original HttpHeaders.Authorization and X-Emby-Authorization
+                header("Authorization", "MediaBrowser Token=\"$accessToken\"") // Changed from original HttpHeaders.Authorization and X-Emby-Authorization
                 // Jellyfin API for PlayedItems POST expects an empty body or a specific PlaybackReportingPostRequest
                 // For simply marking as played, an empty POST body is sufficient.
             }
@@ -2138,7 +2137,7 @@ class JellyfinApiService(
             android.util.Log.d("JellyfinAPI", "Marking item as unwatched: $url")
             
             val response = client.delete(url) {
-                header("X-Emby-Token", accessToken)
+                header("Authorization", "MediaBrowser Token=\"$accessToken\"")
             }
 
             val isSuccessful = response.status.value in 200..299
