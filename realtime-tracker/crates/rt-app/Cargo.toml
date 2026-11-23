@@ -1,0 +1,11 @@
+[package]
+name = "rt-app"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = []
+native = ["rt-core/native"]
+
+[dependencies]
+rt-core = { path = "../rt-core" }

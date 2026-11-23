@@ -1,0 +1,11 @@
+[package]
+name = "rt-core"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = []
+# Link the C++ capture + TensorRT module (Windows, CUDA, TensorRT). See ../../README.md.
+native = []
+
+[dependencies]
